@@ -86,13 +86,13 @@ Se muestra el listado de los empleados:
 - `picture`: Foto del empleado
 
 ### Payment
+Se muestran los pagos realizados
+- `payment_id`: Identificador de la transación
+- `customer_id`: Identificador del cliente que ha realizado el pago, se puede consultar en la tabla **Customer**
+- `staff_id`: Identificador del empleado que realizó la operación de alquiler, se puede consultar en la tabla **Staff**.
+- `amount`: Cantidad de dinero que ha pagado
+- `payment_date`: Fecha en la que realizó el pago.
 
 
 
-
-  - Customer: Indica los datos de los clientes
-  - Film: Alberga un listado de las películas
-  - Rental: Indica que películas se han alquilado, junto a las fechas 
-  - Staff:
-  - Payment:
 
