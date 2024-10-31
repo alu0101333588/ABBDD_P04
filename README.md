@@ -24,3 +24,14 @@ PONER IMAGEN
 ## Identificación de tablas principales y sus elementos
 - Como ya se ha comentado existen 15 tablas de las cuales se descatan:
 
+### Customer
+Se muestran los datos de los clientes
+
+
+
+  - Customer: Indica los datos de los clientes
+  - Film: Alberga un listado de las películas
+  - Rental: Indica que películas se han alquilado, junto a las fechas 
+  - Staff:
+  - Payment:
+
