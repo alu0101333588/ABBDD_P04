@@ -23,5 +23,5 @@ PONER IMAGEN
 
 ## Identificación de tablas principales y sus elementos
 
-- Como ya se ha comentado existen 15 tablas de las cuales se descatan:
+Como ya se ha comentado existen 15 tablas de las cuales se descatan:
   - 
