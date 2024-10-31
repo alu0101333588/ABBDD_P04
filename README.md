@@ -22,6 +22,5 @@ PONER IMAGEN
 - Se puede apreciar que existen 15 tablas y ninguna vista ni secuencias. 
 
 ## Identificación de tablas principales y sus elementos
+- Como ya se ha comentado existen 15 tablas de las cuales se descatan:
 
-Como ya se ha comentado existen 15 tablas de las cuales se descatan:
-  - 
