@@ -161,7 +161,29 @@ PENDIENTE EXPLICACIÓN
 Se añade `ORDER BY` únicamente para que la lectura sea más sencilla, a la hora de mostrar todos los datos.
 
 ### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
+- Se requiere emplear las siguientes tablas: `actor`, `film_actor`, `category`, `film_category`, `film` 
+- Se requieren emplear los siguientes atributos: `first_name`, `last_name`, `actor_id`, `film_id`, `category_id`. `name`, `title`.
 
+```
+SELECT CONCAT(first_name, ', ', last_name) AS Actor, CONCAT(c.name, ': ', title) AS Categorías_Películas
+FROM film f
+JOIN film_actor fa ON fa.film_id = f.film_id
+JOIN film_category fc ON fc.film_id = fa.film_id
+JOIN category c ON c.category_id = fc.category_id
+JOIN actor a ON a.actor_id = fa.actor_id
+GROUP BY first_name, last_name, name, title
+ORDER BY Actor;
+
+
+
+
+JOIN film_category fc ON fc.film_id = f.film_id
+JOIN category c ON c.category_id = fc.category_id
+JOIN film_actor fa ON fa.film_id = fc.film_id
+JOIN actor a ON a.actor_id = fa.actor_id
+GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
+ORDER BY f.film_id;
+```
 
 
 
