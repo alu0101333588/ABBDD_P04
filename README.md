@@ -5,8 +5,9 @@ Práctica 04 - Administración de Bases de Datos
 
 ## Restauración de la Base de Datos
 Para la restauración de la base de datos alquilerdvd.tar se llevan a cabo los siguientes pasos:
+- Para acceder previamente: `sudo -u postgres`.
 - La base de datos se va a denominar **Alquilerdvd** mediante el comando:
-  - `createdb Alquilerdvd`
+  - `createdb Alquilerdvd`.
 - Se usa el usuario por defecto de PostgreSQL: `usuario` para restaurar la base de datos:
   - `pg_restore -d alquilerdvd -U usuario -h localhost -p 5432 /home/usuario/AlquilerPractica.tar`.
 - Para verificar que la restauración se ha realizado con éxito, se accede a la base de datos a través del siguiente comando: `sudo -u postgres psql -d Alquierdvd`. Se puede verificar a través de la siguiente captura:
@@ -92,6 +93,49 @@ Se muestran los pagos realizados
 - `staff_id`: Identificador del empleado que realizó la operación de alquiler, se puede consultar en la tabla **Staff**.
 - `amount`: Cantidad de dinero que ha pagado
 - `payment_date`: Fecha en la que realizó el pago.
+
+
+
+## Consultas
+### Obtenga las ventas totales por categoría de películas ordenadas descendentemente.
+- Se requiere emplear las siguientes tablas: payment, rental, inventory, film_category, category, 
+- Se requieren emplear los siguientes atributos: amount, rental_id, inventory_id, film_id, category_id, name,
+
+```
+SELECT SUM(amount) AS Ventas, name AS Categoria
+FROM payment p
+JOIN rental r ON r.rental_id = p.rental_id
+JOIN inventory i ON i.inventory_id = r.inventory_id
+JOIN film_category f ON f.film_id = i.film_id
+JOIN category c ON c.category_id = f.category_id
+GROUP BY name
+ORDER BY Ventas DESC;
+```
+
+Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio de todos los precios de las películas, que si están presentes en la tabla payment significa que algún cliente ha pagado ese dinero por esa película que pertenece a una categoría. Además, se selecciona el nombre de la categoría (`name`). Para ambos atributos se emplean las etiquetas "Ventas" y "Categoría", con el objetivo de mostrar de manera más clara la tabla final.
+Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por el nombre de categorías y así unificar las categorías para obtener las ventas totales. Finalmente, se ordena descendentemente empleando con `ORDER BY` y `DESC`.
+
+
+### Obtenga las ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
+
+
+
+
+
+
+### Obtenga una lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
+### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
