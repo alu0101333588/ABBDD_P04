@@ -98,8 +98,8 @@ Se muestran los pagos realizados
 
 ## Consultas
 ### Obtenga las ventas totales por categoría de películas ordenadas descendentemente.
-- Se requiere emplear las siguientes tablas: payment, rental, inventory, film_category, category, 
-- Se requieren emplear los siguientes atributos: amount, rental_id, inventory_id, film_id, category_id, name,
+- Se requiere emplear las siguientes tablas: `payment`, `rental`, `inventory`, `film_category`, `category`
+- Se requieren emplear los siguientes atributos: `amount`, `rental_id`, `inventory_id`, `film_id`, `category_id`, `name`
 
 ```
 SELECT SUM(amount) AS Ventas, name AS Categoria
@@ -111,16 +111,31 @@ JOIN category c ON c.category_id = f.category_id
 GROUP BY name
 ORDER BY Ventas DESC;
 ```
+PONER FOTO AQUÍ
 
 Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio de todos los precios de las películas, que si están presentes en la tabla payment significa que algún cliente ha pagado ese dinero por esa película que pertenece a una categoría. Además, se selecciona el nombre de la categoría (`name`). Para ambos atributos se emplean las etiquetas "Ventas" y "Categoría", con el objetivo de mostrar de manera más clara la tabla final.
 Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por el nombre de categorías y así unificar las categorías para obtener las ventas totales. Finalmente, se ordena descendentemente empleando con `ORDER BY` y `DESC`.
 
 
 ### Obtenga las ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
+- Se requiere emplear las siguientes tablas: `payment`, `staff, `store`, `address`, `city`, `country`
+- Se requieren emplear los siguientes atributos: `amount`, `staff_id`, `store_id`, `address_id`, `city_id`, `country_id`, `country`, `city`. `staff_id`, `first_name`, `last_name`
 
+```
+SELECT SUM(amount) AS Ventas, s.store_id AS Tienda, CONCAT(c.city, ', ', co.country) AS Ubicación, s.staff_id AS Id_Encargado, s.first_name AS Nombre, s.last_name AS Apellido
+FROM payment p
+JOIN staff s ON s.staff_id = p.staff_id
+JOIN store st ON st.store_id = s.store_id
+JOIN address a ON a.address_id = st.address_id
+JOIN city c ON c.city_id = a.city_id
+JOIN country co ON co.country_id = c.country_id
+GROUP BY s.store_id, c.city, co.country, s.staff_id, s.first_name, s.last_name;
+```
 
+PONER FOTO AQUÍ
 
-
+Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio de todos los precios de las películas, que si están presentes en la tabla payment significa que algún cliente ha pagado ese dinero por esa película que pertenece a una categoría. Además, se selecciona los atributos requeridos en el enunciado (`store_id`, `address_id`, `city_id`, `country_id`, `staff_id`, `first_name`, `last_name`). En el caso del nombre de la ciudad y del país se emplea `CONCAT` para unir las columnas en una sola denominada `Ubicación`.
+Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por los nombres de los atributos que se desean mostrar.
 
 
 ### Obtenga una lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
