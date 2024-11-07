@@ -118,7 +118,7 @@ Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias pa
 
 
 ### Obtenga las ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
-- Se requiere emplear las siguientes tablas: `payment`, `staff, `store`, `address`, `city`, `country`
+- Se requiere emplear las siguientes tablas: `payment`, `staff`, `store`, `address`, `city`, `country`
 - Se requieren emplear los siguientes atributos: `amount`, `staff_id`, `store_id`, `address_id`, `city_id`, `country_id`, `country`, `city`. `staff_id`, `first_name`, `last_name`
 
 ```
@@ -139,6 +139,27 @@ Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias pa
 
 
 ### Obtenga una lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
+- Se requiere emplear las siguientes tablas: `film`, `category`, `film_category`, `film_actor`, `actor`
+- Se requieren emplear los siguientes atributos: `film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`
+
+
+```
+SELECT f.film_id AS Id_Pelicula, title AS Titulo, description AS Descripcion, name AS Categoria, rental_rate AS Precio, length AS Duración, rating AS Calificación, CONCAT(first_name, ', ', last_name) AS Actor
+FROM film f
+JOIN film_category fc ON fc.film_id = f.film_id
+JOIN category c ON c.category_id = fc.category_id
+JOIN film_actor fa ON fa.film_id = fc.film_id
+JOIN actor a ON a.actor_id = fa.actor_id
+GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
+ORDER BY f.film_id;
+```
+
+PONER FOTO AQUÍ
+
+PENDIENTE EXPLICACIÓN
+
+Se añade `ORDER BY` únicamente para que la lectura sea más sencilla, a la hora de mostrar todos los datos.
+
 ### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
 
 
