@@ -100,7 +100,7 @@ Se muestran los pagos realizados
 
 
 ## Consultas
-### Obtenga las ventas totales por categoría de películas ordenadas descendentemente.
+### Ventas totales por categoría de películas ordenadas descendentemente.
 - Se requiere emplear las siguientes tablas: `payment`, `rental`, `inventory`, `film_category`, `category`
 - Se requiere emplear los siguientes atributos: `amount`, `rental_id`, `inventory_id`, `film_id`, `category_id`, `name`
 
@@ -120,7 +120,7 @@ Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio d
 Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por el nombre de categorías y así unificar las categorías para obtener las ventas totales. Finalmente, se ordena descendentemente empleando con `ORDER BY` y `DESC`.
 
 
-### Obtenga las ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
+### Ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
 - Se requiere emplear las siguientes tablas: `payment`, `staff`, `store`, `address`, `city`, `country`
 - Se requiere emplear los siguientes atributos: `amount`, `staff_id`, `store_id`, `address_id`, `city_id`, `country_id`, `country`, `city`. `staff_id`, `first_name`, `last_name`
 
@@ -141,9 +141,32 @@ Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio d
 Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por los nombres de los atributos que se desean mostrar.
 
 
-### Obtenga una lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
+
+### Lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
 - Se requiere emplear las siguientes tablas: `film`, `category`, `film_category`, `film_actor`, `actor`
 - Se requiere emplear los siguientes atributos: `film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`
+
+```
+SELECT f.film_id AS Id_Pelicula, title AS Titulo, description AS Descripcion, name AS Categoria, rental_rate AS Precio, length AS Duración, rating AS Calificación, CONCAT(first_name, ', ', last_name) AS Actor
+FROM film f
+JOIN film_category fc ON fc.film_id = f.film_id
+JOIN category c ON c.category_id = fc.category_id
+JOIN film_actor fa ON fa.film_id = fc.film_id
+JOIN actor a ON a.actor_id = fa.actor_id
+GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
+ORDER BY f.film_id;
+```
+
+
+**PENDIENTE EXPLICACIÓN**
+
+**PONER IMAGEN AQUÍ**
+
+
+  
+### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
+- Se requiere emplear las siguientes tablas: `actor`, `film_actor`, `category`, `film_category`, `film` 
+- Se requieren emplear los siguientes atributos: `first_name`, `last_name`, `actor_id`, `film_id`, `category_id`. `name`, `title`.
 
 ```
 SELECT nombre_actor, STRING_AGG(CONCAT(categoria, ': ', peliculas), E'\n') AS categorias_peliculas
@@ -165,6 +188,7 @@ Se lleva a cabo una subconsulta para obtener, para cada actor y categoría, una 
 Finalmente, es necesario agrupar por `nombre_actor`, y de cara a una mejor visualización de los resultados se agrupa también por `nombre_actor`.
 
 
+**PONER IMAGEN AQUÍ**
 
 
 
