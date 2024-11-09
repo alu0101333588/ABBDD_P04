@@ -192,7 +192,70 @@ Finalmente, es necesario agrupar por `nombre_actor`, y de cara a una mejor visua
 
 
 
+## Vistas
+### Ventas totales por categoría de películas ordenadas descendentemente.
 
+```
+CREATE VIEW view_ventas_por_categoria AS (
+  SELECT SUM(amount) AS Ventas, name AS Categoria
+  FROM payment p
+  JOIN rental r ON r.rental_id = p.rental_id
+  JOIN inventory i ON i.inventory_id = r.inventory_id
+  JOIN film_category f ON f.film_id = i.film_id
+  JOIN category c ON c.category_id = f.category_id
+  GROUP BY name
+  ORDER BY Ventas DESC
+);
+```
+
+### Ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. 
+
+```
+CREATE VIEW view_ventas_por_tienda AS (
+  SELECT SUM(amount) AS Ventas, s.store_id AS Tienda, CONCAT(c.city, ', ', co.country) AS Ubicación, s.staff_id AS Id_Encargado, s.first_name AS     Nombre, s.last_name AS Apellido
+  FROM payment p
+  JOIN staff s ON s.staff_id = p.staff_id
+  JOIN store st ON st.store_id = s.store_id
+  JOIN address a ON a.address_id = st.address_id
+  JOIN city c ON c.city_id = a.city_id
+  JOIN country co ON co.country_id = c.country_id
+  GROUP BY s.store_id, c.city, co.country, s.staff_id, s.first_name, s.last_name
+);
+```
+
+### Lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos).
+
+```
+CREATE VIEW view_detalles_peliculas AS (
+  SELECT f.film_id AS Id_Pelicula, title AS Titulo, description AS Descripcion, name AS Categoria, rental_rate AS Precio, length AS Duración, rating AS Calificación, CONCAT(first_name, ', ', last_name) AS Actor
+  FROM film f
+  JOIN film_category fc ON fc.film_id = f.film_id
+  JOIN category c ON c.category_id = fc.category_id
+  JOIN film_actor fa ON fa.film_id = fc.film_id
+  JOIN actor a ON a.actor_id = fa.actor_id
+  GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
+  ORDER BY f.film_id
+);
+```
+
+### Información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:”
+
+```
+CREATE VIEW view_peliculas_por_actor AS (
+  SELECT nombre_actor, STRING_AGG(CONCAT(categoria, ': ', peliculas), E'\n') AS categorias_peliculas
+  FROM (
+      SELECT CONCAT(a.first_name, ' ', a.last_name) AS nombre_actor, c.name AS categoria, STRING_AGG(f.title, ', ' ORDER BY f.title) AS peliculas
+      FROM actor a
+      JOIN film_actor fa ON a.actor_id = fa.actor_id
+      JOIN film f ON fa.film_id = f.film_id
+      JOIN film_category fc ON f.film_id = fc.film_id
+      JOIN category c ON fc.category_id = c.category_id
+      GROUP BY a.first_name, a.last_name, c.name
+  )  AS subconsulta
+  GROUP BY nombre_actor
+  ORDER BY nombre_actor
+);
+```
 
 
 
