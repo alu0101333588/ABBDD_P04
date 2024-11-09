@@ -114,7 +114,7 @@ JOIN category c ON c.category_id = f.category_id
 GROUP BY name
 ORDER BY Ventas DESC;
 ```
-PONER FOTO AQUÍ
+![ventas_por_categoria](/images/ventas_por_categoria.png)
 
 Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio de todos los precios de las películas, que si están presentes en la tabla payment significa que algún cliente ha pagado ese dinero por esa película que pertenece a una categoría. Además, se selecciona el nombre de la categoría (`name`). Para ambos atributos se emplean las etiquetas "Ventas" y "Categoría", con el objetivo de mostrar de manera más clara la tabla final.
 Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por el nombre de categorías y así unificar las categorías para obtener las ventas totales. Finalmente, se ordena descendentemente empleando con `ORDER BY` y `DESC`.
@@ -135,7 +135,7 @@ JOIN country co ON co.country_id = c.country_id
 GROUP BY s.store_id, c.city, co.country, s.staff_id, s.first_name, s.last_name;
 ```
 
-PONER FOTO AQUÍ
+![ventas_por_tienda](/images/ventas_por_tienda.png)
 
 Se selecciona el atributo `amount`, empleando `SUM` para realizar un sumatorio de todos los precios de las películas, que si están presentes en la tabla payment significa que algún cliente ha pagado ese dinero por esa película que pertenece a una categoría. Además, se selecciona los atributos requeridos en el enunciado (`store_id`, `address_id`, `city_id`, `country_id`, `staff_id`, `first_name`, `last_name`). En el caso del nombre de la ciudad y del país se emplea `CONCAT` para unir las columnas en una sola denominada `Ubicación`.
 Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por los nombres de los atributos que se desean mostrar.
@@ -157,11 +157,10 @@ GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first
 ORDER BY f.film_id;
 ```
 
+![detalles_peliculas](/images/detalles_peliculas.png)
+
 
 **PENDIENTE EXPLICACIÓN**
-
-**PONER IMAGEN AQUÍ**
-
 
   
 ### Información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
@@ -183,13 +182,12 @@ GROUP BY nombre_actor
 ORDER BY nombre_actor;
 ```
 
+![peliculas_por_actor](/images/peliculas_por_actor.png)
+
+
 Se selecciona `nombre_actor` (`first_name` y `last_name`), se emplea `STRING_AGG` junto con `CONCAT` para crear una lista de categorías y sus películas, con cada par (`categoría`, lista de `peliculas`) separado por un salto de línea, se renombra como `categorias_peliculas`.
 Se lleva a cabo una subconsulta para obtener, para cada actor y categoría, una lista de títulos de películas agrupados y concatenados. A través de `STRING_AGG(f.title, ', ' ORDER BY f.title)` se van a mostrar diferentes títulos de películas en una única fila, ordenados.
 Finalmente, es necesario agrupar por `nombre_actor`, y de cara a una mejor visualización de los resultados se agrupa también por `nombre_actor`.
-
-
-**PONER IMAGEN AQUÍ**
-
 
 
 ## Vistas
@@ -208,6 +206,8 @@ CREATE VIEW view_ventas_por_categoria AS (
 );
 ```
 
+![view_ventas_por_categoria](/images/view_ventas_por_categoria.png)
+
 ### Ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. 
 
 ```
@@ -223,6 +223,9 @@ CREATE VIEW view_ventas_por_tienda AS (
 );
 ```
 
+![view_ventas_por_tienda](/images/view_ventas_por_tienda.png)
+
+
 ### Lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos).
 
 ```
@@ -237,6 +240,9 @@ CREATE VIEW view_detalles_peliculas AS (
   ORDER BY f.film_id
 );
 ```
+
+![view_detalles_peliculas](/images/view_detalles_peliculas.png)
+
 
 ### Información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:”
 
@@ -256,6 +262,8 @@ CREATE VIEW view_peliculas_por_actor AS (
   ORDER BY nombre_actor
 );
 ```
+
+![view_peliculas_por_actor](/images/view_peliculas_por_actor.png)
 
 
 
