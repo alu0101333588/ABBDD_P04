@@ -145,50 +145,24 @@ Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias pa
 - Se requiere emplear las siguientes tablas: `film`, `category`, `film_category`, `film_actor`, `actor`
 - Se requieren emplear los siguientes atributos: `film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`
 
-
 ```
-SELECT f.film_id AS Id_Pelicula, title AS Titulo, description AS Descripcion, name AS Categoria, rental_rate AS Precio, length AS Duración, rating AS Calificación, CONCAT(first_name, ', ', last_name) AS Actor
-FROM film f
-JOIN film_category fc ON fc.film_id = f.film_id
-JOIN category c ON c.category_id = fc.category_id
-JOIN film_actor fa ON fa.film_id = fc.film_id
-JOIN actor a ON a.actor_id = fa.actor_id
-GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
-ORDER BY f.film_id;
-```
-
-PONER FOTO AQUÍ
-
-PENDIENTE EXPLICACIÓN
-
-Se añade `ORDER BY` únicamente para que la lectura sea más sencilla, a la hora de mostrar todos los datos.
-
-### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
-- Se requiere emplear las siguientes tablas: `actor`, `film_actor`, `category`, `film_category`, `film` 
-- Se requieren emplear los siguientes atributos: `first_name`, `last_name`, `actor_id`, `film_id`, `category_id`. `name`, `title`.
-
-```
-SELECT CONCAT(first_name, ', ', last_name) AS Actor, CONCAT(c.name, ': ', title) AS Categorías_Películas
-FROM film f
-JOIN film_actor fa ON fa.film_id = f.film_id
-JOIN film_category fc ON fc.film_id = fa.film_id
-JOIN category c ON c.category_id = fc.category_id
-JOIN actor a ON a.actor_id = fa.actor_id
-GROUP BY first_name, last_name, name, title
-ORDER BY Actor;
-
-
-
-
-JOIN film_category fc ON fc.film_id = f.film_id
-JOIN category c ON c.category_id = fc.category_id
-JOIN film_actor fa ON fa.film_id = fc.film_id
-JOIN actor a ON a.actor_id = fa.actor_id
-GROUP BY f.film_id, title, description, name, rental_rate, length, rating, first_name, last_name
-ORDER BY f.film_id;
+SELECT nombre_actor, STRING_AGG(CONCAT(categoria, ': ', peliculas), E'\n') AS categorias_peliculas
+FROM (
+    SELECT CONCAT(a.first_name, ' ', a.last_name) AS nombre_actor, c.name AS categoria, STRING_AGG(f.title, ', ' ORDER BY f.title) AS peliculas
+    FROM actor a
+    JOIN film_actor fa ON a.actor_id = fa.actor_id
+    JOIN film f ON fa.film_id = f.film_id
+    JOIN film_category fc ON f.film_id = fc.film_id
+    JOIN category c ON fc.category_id = c.category_id
+    GROUP BY a.first_name, a.last_name, c.name
+) AS subconsulta
+GROUP BY nombre_actor
+ORDER BY nombre_actor;
 ```
 
-
+Se selecciona `nombre_actor` (`first_name` y `last_name`), se emplea `STRING_AGG` junto con `CONCAT` para crear una lista de categorías y sus películas, con cada par (`categoría`, lista de `peliculas`) separado por un salto de línea, se renombra como `categorias_peliculas`.
+Se lleva a cabo una subconsulta para obtener, para cada actor y categoría, una lista de títulos de películas agrupados y concatenados. A través de `STRING_AGG(f.title, ', ' ORDER BY f.title)` se van a mostrar diferentes títulos de películas en una única fila, ordenados.
+Finalmente, es necesario agrupar por `nombre_actor`, y de cara a una mejor visualización de los resultados se agrupa también por `nombre_actor`.
 
 
 
