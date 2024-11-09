@@ -102,7 +102,7 @@ Se muestran los pagos realizados
 ## Consultas
 ### Obtenga las ventas totales por categoría de películas ordenadas descendentemente.
 - Se requiere emplear las siguientes tablas: `payment`, `rental`, `inventory`, `film_category`, `category`
-- Se requieren emplear los siguientes atributos: `amount`, `rental_id`, `inventory_id`, `film_id`, `category_id`, `name`
+- Se requiere emplear los siguientes atributos: `amount`, `rental_id`, `inventory_id`, `film_id`, `category_id`, `name`
 
 ```
 SELECT SUM(amount) AS Ventas, name AS Categoria
@@ -122,7 +122,7 @@ Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias pa
 
 ### Obtenga las ventas totales por tienda, donde se refleje la ciudad, el país (concatenar la ciudad y el país empleando como separador la “,”), y el encargado. Pudiera emplear GROUP BY, ORDER BY
 - Se requiere emplear las siguientes tablas: `payment`, `staff`, `store`, `address`, `city`, `country`
-- Se requieren emplear los siguientes atributos: `amount`, `staff_id`, `store_id`, `address_id`, `city_id`, `country_id`, `country`, `city`. `staff_id`, `first_name`, `last_name`
+- Se requiere emplear los siguientes atributos: `amount`, `staff_id`, `store_id`, `address_id`, `city_id`, `country_id`, `country`, `city`. `staff_id`, `first_name`, `last_name`
 
 ```
 SELECT SUM(amount) AS Ventas, s.store_id AS Tienda, CONCAT(c.city, ', ', co.country) AS Ubicación, s.staff_id AS Id_Encargado, s.first_name AS Nombre, s.last_name AS Apellido
@@ -143,7 +143,7 @@ Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias pa
 
 ### Obtenga una lista de películas, donde se reflejen el identificador, el título, descripción, categoría, el precio, la duración de la película, clasificación, nombre y apellidos de los actores (puede realizar una concatenación de ambos). Pudiera emplear GROUP BY
 - Se requiere emplear las siguientes tablas: `film`, `category`, `film_category`, `film_actor`, `actor`
-- Se requieren emplear los siguientes atributos: `film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`
+- Se requiere emplear los siguientes atributos: `film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`
 
 ```
 SELECT nombre_actor, STRING_AGG(CONCAT(categoria, ': ', peliculas), E'\n') AS categorias_peliculas
