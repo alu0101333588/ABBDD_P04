@@ -1,6 +1,6 @@
 # ABBDD_P04
 Práctica 04 - Administración de Bases de Datos
-Realizada por Andrés Hernández Ortega y Luka Kravarusic Sljapic
+- Realizada por Andrés Hernández Ortega y Luka Kravarusic Sljapic
 
 
 
