@@ -23,6 +23,8 @@ PONER IMAGEN AQUÍ
 - Para la identificación de las secuencias: `ds`.
 - Se puede apreciar que existen 15 tablas y ninguna vista ni secuencias. 
 
+PONER IMAGEN AQUÍ
+
 ## Identificación de tablas principales y sus elementos
 - Como ya se ha comentado existen 15 tablas de las cuales se descatan:
 
