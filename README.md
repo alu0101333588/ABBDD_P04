@@ -6,7 +6,7 @@ Práctica 04 - Administración de Bases de Datos
 
 ## Restauración de la Base de Datos
 Para la restauración de la base de datos alquilerdvd.tar se llevan a cabo los siguientes pasos:
-- Para acceder previamente: `sudo -u postgres`.
+- Para acceder previamente: `sudo -u postgres psql`.
 - La base de datos se va a denominar **Alquilerdvd** mediante el comando:
   - `createdb Alquilerdvd`.
 - Se usa el usuario por defecto de PostgreSQL: `usuario` para restaurar la base de datos:
