@@ -164,7 +164,7 @@ ORDER BY f.film_id;
 
 
   
-### Obtenga la información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
+### Información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
 - Se requiere emplear las siguientes tablas: `actor`, `film_actor`, `category`, `film_category`, `film` 
 - Se requieren emplear los siguientes atributos: `first_name`, `last_name`, `actor_id`, `film_id`, `category_id`. `name`, `title`.
 
