@@ -266,6 +266,8 @@ CREATE VIEW view_peliculas_por_actor AS (
 ![view_peliculas_por_actor](/images/view_peliculas_por_actor.png)
 
 
+__________________________________
+__________________________________
 
 
 
@@ -285,38 +287,38 @@ ADD CONSTRAINT email_no_nulo CHECK (email IS NOT NULL);
 ```
 
 
-
+```
 SELECT proname AS last_updated,
        pg_get_functiondef(p.oid) AS function_definition
 FROM pg_proc p
 JOIN pg_namespace n ON p.pronamespace = n.oid
 WHERE p.proname = 'last_updated';
-
+```
 
 
 `last_update` también está presente en las siguientes tablas: Actor, Address, Category, City, Country, Customer, Film, Film_actor, Film_category, Inventory, Language, Rental, Staff, Store.
 No está presente en Payment.
 
-
+```
 SELECT proname AS tsvector_update_trigger,
        pg_get_functiondef(p.oid) AS function_definition
 FROM pg_proc p
 JOIN pg_namespace n ON p.pronamespace = n.oid
 WHERE p.proname = 'tsvector_update_trigger';
-
+```
 
 
 
 __________________________________
 
-
+```
 CREATE TABLE film_insert_log (
     log_id SERIAL PRIMARY KEY,
     film_id INTEGER NOT NULL,
     insert_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-
+```
+```
 CREATE OR REPLACE FUNCTION log_film_insert()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -325,32 +327,32 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+```
 
-
-
+```
 CREATE TRIGGER film_insert_trigger
 AFTER INSERT ON film
 FOR EACH ROW
 EXECUTE FUNCTION log_film_insert();
+```
 
-
-
+```
 INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features, fulltext)
 VALUES ('The Great Adventure', 'An epic journey across unknown lands.', 2023, 1, 5, 3.99, 120, 24.99, 'PG', ARRAY['Deleted Scenes', 'Behind the Scenes'], to_tsvector('english', 'The Great Adventure An epic journey across unknown lands.'));
-
+```
 
 
 _______________________
-
+```
 CREATE TABLE film_delete_log (
     log_id SERIAL PRIMARY KEY,
     film_id INTEGER NOT NULL,
     film_name VARCHAR(255),
     delete_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+```
 
-
-
+```
 CREATE OR REPLACE FUNCTION log_film_delete()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -359,14 +361,12 @@ BEGIN
     RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
+```
 
-
-
+```
 CREATE TRIGGER film_delete_trigger
 AFTER DELETE ON film
 FOR EACH ROW
 EXECUTE FUNCTION log_film_delete();
-
-
-SELECT * FROM film_delete_log;
+```
 
