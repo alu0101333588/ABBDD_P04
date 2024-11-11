@@ -307,4 +307,66 @@ WHERE p.proname = 'tsvector_update_trigger';
 
 
 
+__________________________________
+
+
+CREATE TABLE film_insert_log (
+    log_id SERIAL PRIMARY KEY,
+    film_id INTEGER NOT NULL,
+    insert_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE OR REPLACE FUNCTION log_film_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO film_insert_log (film_id, insert_date)
+    VALUES (NEW.film_id, CURRENT_TIMESTAMP);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER film_insert_trigger
+AFTER INSERT ON film
+FOR EACH ROW
+EXECUTE FUNCTION log_film_insert();
+
+
+
+INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features, fulltext)
+VALUES ('The Great Adventure', 'An epic journey across unknown lands.', 2023, 1, 5, 3.99, 120, 24.99, 'PG', ARRAY['Deleted Scenes', 'Behind the Scenes'], to_tsvector('english', 'The Great Adventure An epic journey across unknown lands.'));
+
+
+
+_______________________
+
+CREATE TABLE film_delete_log (
+    log_id SERIAL PRIMARY KEY,
+    film_id INTEGER NOT NULL,
+    film_name VARCHAR(255),
+    delete_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE OR REPLACE FUNCTION log_film_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO film_delete_log (film_id, film_name, delete_date)
+    VALUES (OLD.film_id, OLD.title, CURRENT_TIMESTAMP);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER film_delete_trigger
+AFTER DELETE ON film
+FOR EACH ROW
+EXECUTE FUNCTION log_film_delete();
+
+
+SELECT * FROM film_delete_log;
 
