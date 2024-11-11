@@ -11,7 +11,7 @@ Para la restauración de la base de datos alquilerdvd.tar se llevan a cabo los s
   - `createdb Alquilerdvd`.
 - Se usa el usuario por defecto de PostgreSQL: `usuario` para restaurar la base de datos:
   - `pg_restore -d alquilerdvd -U usuario -h localhost -p 5432 /home/usuario/AlquilerPractica.tar`.
-- Para verificar que la restauración se ha realizado con éxito, se accede a la base de datos a través del siguiente comando: `sudo -u postgres psql -d Alquierdvd`. Se puede verificar a través de la siguiente captura:
+- Para verificar que la restauración se ha realizado con éxito, se accede a la base de datos a través del siguiente comando: `sudo -u postgres psql -d Alquilerdvd`. Se puede verificar a través de la siguiente captura:
 
 
 PONER IMAGEN AQUÍ
