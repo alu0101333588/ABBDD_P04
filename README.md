@@ -270,3 +270,41 @@ CREATE VIEW view_peliculas_por_actor AS (
 
 
 
+
+
+
+
+```
+ALTER TABLE address
+ADD CONSTRAINT codigo_postal_no_nulo CHECK (postal_code IS NOT NULL);
+```
+
+```
+ALTER TABLE customer
+ADD CONSTRAINT email_no_nulo CHECK (email IS NOT NULL);
+```
+
+
+
+SELECT proname AS last_updated,
+       pg_get_functiondef(p.oid) AS function_definition
+FROM pg_proc p
+JOIN pg_namespace n ON p.pronamespace = n.oid
+WHERE p.proname = 'last_updated';
+
+
+
+`last_update` también está presente en las siguientes tablas: Actor, Address, Category, City, Country, Customer, Film, Film_actor, Film_category, Inventory, Language, Rental, Staff, Store.
+No está presente en Payment.
+
+
+SELECT proname AS tsvector_update_trigger,
+       pg_get_functiondef(p.oid) AS function_definition
+FROM pg_proc p
+JOIN pg_namespace n ON p.pronamespace = n.oid
+WHERE p.proname = 'tsvector_update_trigger';
+
+
+
+
+
