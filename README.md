@@ -20,10 +20,10 @@ PONER IMAGEN AQUÍ
 ## Identificación de tablas, vistas y secuencias
 - Para la identificación de las tablas se emplea: `\dt`.
 - Para la identificación de las vistas: `\dv`.
-- Para la identificación de las secuencias: `ds`.
-- Se puede apreciar que existen 15 tablas y ninguna vista ni secuencias. 
+- Para la identificación de las secuencias: `\ds`.
+- Se puede apreciar que existen 15 tablas, ninguna vista y 13 secuencias. 
 
-PONER IMAGEN AQUÍ
+PONER IMAGEN AQUÍ (de las tablas y de las secuencias)
 
 ## Identificación de tablas principales y sus elementos
 - Como ya se ha comentado existen 15 tablas de las cuales se descatan:
