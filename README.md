@@ -405,4 +405,8 @@ Mostramos las secuencias de la base de datos:
 
 ![Secuencias](/images/secuencias_bbdd.png)
 
-En este caso, las secuencias de la base de datos se usan para generar números consecutivos únicos para las claves primarias de las tablas. Por ejemplo en la tabla 
+En este caso, las secuencias de la base de datos se usan para generar números consecutivos únicos para columnas de las tablas, por ejemplo para las claves primarias. Tomando como ejemplo la tabla Language:
+
+![Language](/images/language_language_id_seq.png)
+
+Si nos fijamos en el contenido de la secuencia, podemos ver que el último valor usado en la tabla Language para la columna language_id coincide con la columna last_value de la secuencia.
