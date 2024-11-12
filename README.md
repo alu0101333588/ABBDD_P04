@@ -320,8 +320,9 @@ WHERE p.proname = 'tsvector_update_trigger';
 
 ![tsvector](/images/function_tsvector_update_trigger.png)
 
+## Trigger film_insert
 
-__________________________________
+Creamos la tabla primero donde vamos a guardar la fecha de las inserciones nuevas que se realicen en la tabla Film:
 
 ```
 CREATE TABLE film_insert_log (
@@ -330,6 +331,8 @@ CREATE TABLE film_insert_log (
     insert_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
+Pasamos a crear la función que va a ser ejecutada dentro del trigger. Va a insertar en la tabla creada anteriormente el id de la película que se insertó y la fecha en la que se ha realizado:
+
 ```
 CREATE OR REPLACE FUNCTION log_film_insert()
 RETURNS TRIGGER AS $$
@@ -340,6 +343,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 ```
+Para finalizar, creamos el trigger que llamará a la función después de cada inserción en la tabla anterior:
 
 ```
 CREATE TRIGGER film_insert_trigger
@@ -347,14 +351,19 @@ AFTER INSERT ON film
 FOR EACH ROW
 EXECUTE FUNCTION log_film_insert();
 ```
+Vamos a probar el funcionamiento con un ejemplo:
 
 ```
 INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features, fulltext)
 VALUES ('The Great Adventure', 'An epic journey across unknown lands.', 2023, 1, 5, 3.99, 120, 24.99, 'PG', ARRAY['Deleted Scenes', 'Behind the Scenes'], to_tsvector('english', 'The Great Adventure An epic journey across unknown lands.'));
 ```
 
+![film_trigger](/images/film_insert_trigger.png)
 
-_______________________
+## Trigger film_delete
+
+Creamos la tabla para almacenar los datos de cuando se eliminó una película:
+
 ```
 CREATE TABLE film_delete_log (
     log_id SERIAL PRIMARY KEY,
@@ -363,6 +372,8 @@ CREATE TABLE film_delete_log (
     delete_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
+
+Creamos una función que se ejecutará dentro del trigger. Va a insertar los valores antiguos de film_id y el título de la película, junto a la fecha en la que se eliminó:
 
 ```
 CREATE OR REPLACE FUNCTION log_film_delete()
@@ -375,10 +386,17 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
+Creamos el trigger ahora, que se invocará después de una eliminación en la tabla Film:
+
 ```
 CREATE TRIGGER film_delete_trigger
 AFTER DELETE ON film
 FOR EACH ROW
 EXECUTE FUNCTION log_film_delete();
 ```
+
+Probamos con un ejemplo:
+
+![delete_trigger](/images/film_delete_trigger.png)
+
 
