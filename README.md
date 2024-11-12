@@ -303,7 +303,9 @@ Vamos a mostrar primero la descripción de todas las tablas de la base de datos.
 
 ![store](/images/d_store.png)
 
+Si nos fijamos en las cláves foráneas, todas las claves foráneas de todas las tablas se van a actualizar en cascada cuando lo haga el valor del atributo al que hace referencia. También, si intentamos eliminar una fila de alguna base de datos, si es referenciada por claves foráneas, no va a permitir la eliminación en ninguna tabla debido al `ON DELETE RESTRICT`, que está presente en todas las claves foráneas salvo en las tablas Address, City y Staff, donde no tiene ninguna restricción a la eliminación, por tanto podríamos eliminar un trabajador de alguna tienda por ejemplo. En la tabla Payment, rental_id que hace referencia a rental_id de la tabla Rental, en caso de eliminación de un valor en la tabla rental, se pone a NULL en la tabla Payment debido al `ON DELETE SET NULL`.
 
+Algunas restricciones CHECK que podríamos añadir si fuéramos a implementar algo parecido en la actualidad sería por ejemplo la obligación de que los clientes que alquilen faciliten un email, o que todas las direcciones deben tener un código postal:
 
 ```
 ALTER TABLE address
