@@ -14,7 +14,7 @@ Para la restauración de la base de datos alquilerdvd.tar se llevan a cabo los s
 - Para verificar que la restauración se ha realizado con éxito, se accede a la base de datos a través del siguiente comando: `sudo -u postgres psql -d Alquilerdvd`. Se puede verificar a través de la siguiente captura:
 
 
-PONER IMAGEN AQUÍ
+![Restauracion](/images/restauracion_basededatos.png "Restauracion")
 
 
 ## Identificación de tablas, vistas y secuencias
@@ -23,7 +23,8 @@ PONER IMAGEN AQUÍ
 - Para la identificación de las secuencias: `\ds`.
 - Se puede apreciar que existen 15 tablas, ninguna vista y 13 secuencias. 
 
-PONER IMAGEN AQUÍ (de las tablas y de las secuencias)
+![Tablas](/images/tablas_bbdd.png "Tablas")
+![Secuencias](/images/secuencias_bbdd.png "Secuencias")
 
 ## Identificación de tablas principales y sus elementos
 - Como ya se ha comentado existen 15 tablas de las cuales se descatan:
@@ -41,7 +42,7 @@ Se muestran los datos de los clientes:
 - `last_update`: Fecha en la que se realizaron por última vez modificaciones en los datos del cliente
 - `active`: Muestra, al igual que `activebool`si un cliente tiene la cuenta activa (1) o inactiva (0)
 
-PONER IMAGEN AQUÍ
+![Customer](/images/customer_table.png "Customer")
 
 ### Film
 Se muestran los datos de las películas:
@@ -59,7 +60,7 @@ Se muestran los datos de las películas:
 - `special_features`: Características especiales, es decir, si cuenta con material adicional (tráilers, escenas postcréditos,...).
 - `fulltext`: Listado de palabras clave
 
-PONER IMAGEN AQUÍ
+![Film](/images/film_table.png "Film")
 
 ### Rental
 Se muestra el listado de películas alquiladas por los clientes:
@@ -72,7 +73,7 @@ Se muestra el listado de películas alquiladas por los clientes:
 - `last_update`: Fecha en la que se realizó la última modificación
 
 
-PONER IMAGEN AQUÍ
+![Rental](/images/rental_table.png "Rental")
 
 
 ### Staff
@@ -89,6 +90,8 @@ Se muestra el listado de los empleados:
 - `last_update`: Fecha en la que se realizaron por última vez modificaciones en los datos del empleado
 - `picture`: Foto del empleado
 
+![Staff](/images/staff_table.png "Staff")
+
 ### Payment
 Se muestran los pagos realizados
 - `payment_id`: Identificador de la transación
@@ -97,7 +100,7 @@ Se muestran los pagos realizados
 - `amount`: Cantidad de dinero que ha pagado
 - `payment_date`: Fecha en la que realizó el pago.
 
-
+![Payment](/images/payment_table.png "Payment")
 
 ## Consultas
 ### Ventas totales por categoría de películas ordenadas descendentemente.
