@@ -399,4 +399,10 @@ Probamos con un ejemplo:
 
 ![delete_trigger](/images/film_delete_trigger.png)
 
+## Secuencias
 
+Mostramos las secuencias de la base de datos:
+
+![Secuencias](/images/secuencias_bbdd.png)
+
+En este caso, las secuencias de la base de datos se usan para generar números consecutivos únicos para las claves primarias de las tablas. Por ejemplo en la tabla 
