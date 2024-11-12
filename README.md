@@ -290,6 +290,9 @@ ALTER TABLE customer
 ADD CONSTRAINT email_no_nulo CHECK (email IS NOT NULL);
 ```
 
+## Sentencia last_updated
+
+Si queremos ver qué contiene la función last_updated, ejecutamos la siguiente consulta;
 
 ```
 SELECT proname AS last_updated,
@@ -299,10 +302,14 @@ JOIN pg_namespace n ON p.pronamespace = n.oid
 WHERE p.proname = 'last_updated';
 ```
 
-
-`last_update` también está presente en las siguientes tablas: Actor, Address, Category, City, Country, Customer, Film, Film_actor, Film_category, Inventory, Language, Rental, Staff, Store.
+`last_updated` también está presente en las siguientes tablas: Actor, Address, Category, City, Country, Customer, Film, Film_actor, Film_category, Inventory, Language, Rental, Staff, Store.
 No está presente en Payment.
+La función está en uso con un trigger, que lo que hace es actualizar la columna de última actualización cuando se produce una modificación de una fila de la tabla.
 
+![last_updated](/images/function_last_update.png)
+
+
+También hay otra función dentro de otro trigger:
 ```
 SELECT proname AS tsvector_update_trigger,
        pg_get_functiondef(p.oid) AS function_definition
@@ -311,6 +318,7 @@ JOIN pg_namespace n ON p.pronamespace = n.oid
 WHERE p.proname = 'tsvector_update_trigger';
 ```
 
+![tsvector](/images/function_tsvector_update_trigger.png)
 
 
 __________________________________
