@@ -269,14 +269,39 @@ CREATE VIEW view_peliculas_por_actor AS (
 
 ![view_peliculas_por_actor](/images/view_peliculas_por_actor.png)
 
+## Análisis modelo
 
-__________________________________
-__________________________________
+Vamos a mostrar primero la descripción de todas las tablas de la base de datos.
 
+![actor](/images/d_actor.png)
 
+![address](/images/d_address.png)
 
+![category](/images/d_category.png)
 
+![city](/images/d_city.png)
 
+![country](/images/d_country.png)
+
+![customer](/images/d_customer.png)
+
+![film](/images/d_film.png)
+
+![film_actor](/images/d_film_actor.png)
+
+![film_category](/images/d_film_category.png)
+
+![inventory](/images/d_inventory.png)
+
+![language](/images/d_language.png)
+
+![payment](/images/d_payment.png)
+
+![rental](/images/d_rental.png)
+
+![staff](/images/d_staff.png)
+
+![store](/images/d_store.png)
 
 
 
