@@ -163,7 +163,8 @@ ORDER BY f.film_id;
 ![detalles_peliculas](/images/detalles_peliculas.png)
 
 
-**PENDIENTE EXPLICACIÓN**
+Se seleccionan los atributos requeridos en el enunciado (`film_id`, `title`, `description`, `category_id`, `name`, `rental_rate`, `length`, `rating`, `actor_id`, `first_name`, `last_name`). En el caso del nombre y apellidos del actor se emplea `CONCAT` para unir las columnas en una sola denominada `Actor`.
+Se emplea `JOIN` para fusionar los atributos comunes de las tablas necesarias para la consulta. El `GROUP BY` es necesario para agrupar por los nombres de los atributos que se desean mostrar.
 
   
 ### Información de los actores, donde se incluya sus nombres y apellidos, las categorías y sus películas. Los actores deben de estar agrupados y, las categorías y las películas deben estar concatenados por “:” 
